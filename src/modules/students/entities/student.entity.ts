@@ -1,22 +1,39 @@
-import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('students')
 export class Student {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column({ length: 255})
-    name: string;
+  @Column({ length: 255 })
+  name: string;
 
-    @Column({unique: true})
-    email: string;
+  @Column({ unique: true })
+  email: string;
 
-    @Column({length: 10})
-    phone: string;
+  @Column({ length: 10 })
+  phone: string;
 
-    @Column({type: 'date'})
-    dob: string;
+  @Column({ type: 'date' })
+  dob: string;
 
-    @Column({type: 'text', nullable: true})
-    address: string;
+  @Column({ type: 'text', nullable: true })
+  address: string;
+
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 }

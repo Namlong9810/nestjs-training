@@ -1,3 +1,4 @@
+import { text } from 'stream/consumers';
 import {
   Column,
   CreateDateColumn,
@@ -5,25 +6,20 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Student } from '../../students/entities/student.entity';
-import { Course } from '../../course/Entities/courses.entity';
 
-@Entity('enrollment')
-export class Enrollment {
+@Entity('course')
+export class Course {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('uuid')
-  student_id: string;
+  @Column({ length: 255 })
+  name: string;
 
-  @Column('uuid')
-  course_id: string;
+  @Column({ type: 'varchar', length: 255 })
+  description: string;
 
-  @Column({ length: 10 })
-  semester: string;
-
-  @Column({ type: 'float', nullable: true })
-  grade: number;
+  @Column({ type: 'int' })
+  credit: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

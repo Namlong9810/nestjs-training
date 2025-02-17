@@ -1,23 +1,30 @@
-import { IsDateString, IsInt, IsNotEmpty, IsOptional, MaxLength, Min } from "class-validator";
+import {
+  IsDateString,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  MaxLength,
+  Min,
+} from 'class-validator';
 
-export class CreateStudentDTO{
-    @IsNotEmpty()
-    @MaxLength(255)
-    name: string;
+export class CreateStudentDTO {
+  @IsNotEmpty()
+  @MaxLength(255)
+  name: string;
 
-    @IsOptional()
-    @Min(10)
-    email: string;
+  @IsOptional()
+  @Min(10)
+  email: string;
 
-    @IsNotEmpty()
-    @IsInt()
-    @Min(18)
-    age: string;
+  @IsNotEmpty()
+  @IsInt()
+  @Min(18)
+  age: string;
 
-    @IsNotEmpty()
-    @IsDateString()
-    dob: string;
+  @IsNotEmpty()
+  @IsDateString()
+  dob: string;
 
-    @IsOptional()
-    address: string;
+  @IsOptional()
+  address: string;
 }
