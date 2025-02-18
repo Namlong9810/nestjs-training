@@ -1,3 +1,5 @@
+
+import { RolesGuard } from 'src/guard/roles.guard';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,6 +9,11 @@ import { Course } from './modules/course/Entities/courses.entity';
 import { Enrollment } from './modules/enrollments/entities/enrollments.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './guard/auth.guard';
+import { CourseModule } from './modules/course/courses.modules';
+import { StudentModules } from './modules/students/student.module';
+import { EnrollmentModule } from './modules/enrollments/enrollments.module';
 
 @Module({
   imports: [
@@ -23,9 +30,22 @@ import { UserModule } from './user/user.module';
     }),
     TypeOrmModule.forFeature([Student, Course, Enrollment]),
     AuthModule,
+    CourseModule,
+    StudentModules,
+    EnrollmentModule,
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+   providers: [AppService, 
+  {
+    provide: APP_GUARD,
+    useClass: AuthGuard,
+  },
+  {
+    provide: APP_GUARD,
+    useClass: RolesGuard,
+  }
+],
+  //  ]
 })
 export class AppModule {}

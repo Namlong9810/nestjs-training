@@ -6,20 +6,26 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { EnrollmentService } from './enrollments.service';
 import { CreateEnrollmentDTO } from './dto/createEnrollment.dto';
 import { UpdateEnrollmentDTO } from './dto/updateEnrollment.dto';
+import { RolesGuard } from 'src/guard/roles.guard';
+import { Roles } from 'src/decorator/roles.decorator';
+import { Role } from 'src/auth/enums/roles.enum';
 
 @Controller('enrollment')
+@UseGuards(RolesGuard)
 @UsePipes(new ValidationPipe({ whitelist: true }))
 export class EnrollmentController {
   constructor(private readonly enrollmentService: EnrollmentService) {}
 
   /* đăng kí môn học cho sinh viên */
   @Post()
+  @Roles(Role.Admin, Role.Student, Role.Teacher)
   create(@Body() createEnrollmentDTO: CreateEnrollmentDTO) {
     return this.enrollmentService.create(createEnrollmentDTO);
   }

@@ -10,25 +10,18 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ){};
 
-    async validateUser(username: string, password: string): Promise<any>{
-        const user =  await this.userService.findOne(username);
-
-        if(user && user.password === password){
-            const {password, ...result} = user;
-            return result;
-        }
-
-        throw new UnauthorizedException('Invalid credentials');
-    }
-
     /* Tạo jwt nếu đăng nhập thành công */
-    async login(user: any){
-        const payload = { username: user.username, role: user.role};
+    async login(username: string, password: string ): Promise<{access_token: string}> {
+        const user = await this.userService.findOne(username);
+
+        if(user?.password != password){
+            throw new UnauthorizedException('Invalid credentials');
+        }
+        
+        const payload = { sub: user.id, username: user.username};
 
         return {
-            access_token: this.jwtService.sign(payload),
+            access_token: await this.jwtService.signAsync(payload),
         };
     }
-
-
 }
