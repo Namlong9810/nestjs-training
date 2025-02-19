@@ -13,24 +13,32 @@ import {
 import { EnrollmentService } from './enrollments.service';
 import { CreateEnrollmentDTO } from './dto/createEnrollment.dto';
 import { UpdateEnrollmentDTO } from './dto/updateEnrollment.dto';
-import { RolesGuard } from 'src/guard/roles.guard';
 import { Roles } from 'src/decorator/roles.decorator';
 import { Role } from 'src/auth/enums/roles.enum';
 
+/**
+ * @author: namhm
+ */
 @Controller('enrollment')
-@UseGuards(RolesGuard)
 @UsePipes(new ValidationPipe({ whitelist: true }))
 export class EnrollmentController {
   constructor(private readonly enrollmentService: EnrollmentService) {}
 
-  /* đăng kí môn học cho sinh viên */
+  /**
+   * Create new enrollment
+   * @body createEnrollmentDTO
+   * @return Enrollment Object
+   */
   @Post()
-  @Roles(Role.Admin, Role.Student, Role.Teacher)
+  @Roles(Role.Admin, Role.Student)
   create(@Body() createEnrollmentDTO: CreateEnrollmentDTO) {
     return this.enrollmentService.create(createEnrollmentDTO);
   }
 
-  /* Lấy danh sách các môn học của 1 sinh viên */
+  /**
+   * Get list of enrollment
+   * @Param
+   */
   @Get('student/:id/courses')
   getList(@Param('id') id: string) {
     return this.enrollmentService.getList(id);
@@ -44,8 +52,12 @@ export class EnrollmentController {
 
   /* Cập nhật điểm số cho sinh viên */
   @Put(':id')
-  updateStudentScore(@Param('id') id: string, updateEnrollmentDTO: UpdateEnrollmentDTO) {
-    return this.enrollmentService.updateStudentScore(id,updateEnrollmentDTO);
+  @Roles(Role.Admin, Role.Teacher)
+  updateStudentScore(
+    @Param('id') id: string,
+    updateEnrollmentDTO: UpdateEnrollmentDTO,
+  ) {
+    return this.enrollmentService.updateStudentScore(id, updateEnrollmentDTO);
   }
 
   /* Hủy đăng kí môn học */

@@ -16,6 +16,8 @@ import { StudentService } from './student.services';
 import { CreateStudentDTO } from './dto/createStudent.dto';
 import { UpdateStudentDTO } from './dto/updateStudent.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Roles } from 'src/decorator/roles.decorator';
+import { Role } from 'src/auth/enums/roles.enum';
 
 @Controller('student')
 @UseGuards(AuthGuard('jwt'))
@@ -25,12 +27,14 @@ export class StudentController {
 
   /* create new student */
   @Post('')
+  @Roles(Role.Admin, Role.Teacher)
   create(@Body() createStudentDTO: CreateStudentDTO) {
     return this.studentService.create(createStudentDTO);
   }
 
   /* Get list students */
   @Get('')
+  @Roles(Role.Admin, Role.Teacher)
   findAll() {
     return this.studentService.findAll();
   }

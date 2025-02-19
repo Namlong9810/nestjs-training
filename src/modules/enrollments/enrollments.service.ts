@@ -73,21 +73,25 @@ export class EnrollmentService {
     return students;
   }
 
-  async updateStudentScore(id: string, updateEnrollmentDTO: UpdateEnrollmentDTO): Promise<void> {
-    const update = await this.enrollmentRepository.update(id, updateEnrollmentDTO);
+  async updateStudentScore(
+    id: string,
+    updateEnrollmentDTO: UpdateEnrollmentDTO,
+  ): Promise<void> {
+    const update = await this.enrollmentRepository.update(
+      id,
+      updateEnrollmentDTO,
+    );
 
-    if(update.affected === 0){
-        throw new NotFoundException(`Can not found student with ID ${id}`);
+    if (update.affected === 0) {
+      throw new NotFoundException(`Can not found student with ID ${id}`);
     }
-
   }
 
   async cancelCourse(id: string): Promise<void> {
-    const result = await this.enrollmentRepository.findOne({where: {id}});
+    const result = await this.enrollmentRepository.findOne({ where: { id } });
 
-    if(!result){
-        throw new NotFoundException(`Can not find Enrollment with id ${id}`);
+    if (!result) {
+      throw new NotFoundException(`Can not find Enrollment with id ${id}`);
     }
-    
   }
 }

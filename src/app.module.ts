@@ -1,4 +1,3 @@
-
 import { RolesGuard } from 'src/guard/roles.guard';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -14,6 +13,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { CourseModule } from './modules/course/courses.modules';
 import { StudentModules } from './modules/students/student.module';
 import { EnrollmentModule } from './modules/enrollments/enrollments.module';
+import { User } from './user/entities/user.entities';
 
 @Module({
   imports: [
@@ -28,24 +28,26 @@ import { EnrollmentModule } from './modules/enrollments/enrollments.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Student, Course, Enrollment]),
+    TypeOrmModule.forFeature([Student, Course, Enrollment, User]),
     AuthModule,
     CourseModule,
     StudentModules,
+    UserModule,
     EnrollmentModule,
     UserModule,
   ],
   controllers: [AppController],
-   providers: [AppService, 
-  {
-    provide: APP_GUARD,
-    useClass: AuthGuard,
-  },
-  {
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  }
-],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
   //  ]
 })
 export class AppModule {}
