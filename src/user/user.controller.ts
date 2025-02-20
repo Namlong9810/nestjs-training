@@ -20,14 +20,20 @@ import { ChangeRoleDTO } from './dto/changeRole.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  /* Find User */
+  /**
+   *  Find User
+   * @param user id
+   * @return user obj */
   @Get(':id')
   @Roles(Role.ADMIN, Role.TEACHER)
   findUser(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.findUser(id);
   }
 
-  /* Update User */
+  /** Update User
+   * @param user id
+   * @return status code
+   */
   @Put(':id')
   @HttpCode(HttpStatus.OK)
   @Roles(Role.ADMIN)
@@ -38,7 +44,10 @@ export class UserController {
     return this.userService.update(id, updateUserDTO);
   }
 
-  /* Delete User */
+  /** Delete User
+   * @param user id
+   * @return status code
+   */
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   @Roles(Role.ADMIN)
@@ -46,7 +55,11 @@ export class UserController {
     return this.userService.delete(id);
   }
 
-  /* Change User's password */
+  /** Change User's password
+   * @param user id
+   * @body data to obj
+   * @return status code
+   */
   @Put(':id/password')
   @HttpCode(HttpStatus.OK)
   @Roles(Role.STUDENT, Role.TEACHER)
@@ -57,11 +70,18 @@ export class UserController {
     return this.userService.updatePassword(id, changePassDTO);
   }
 
-  /* Set role for User */
+  /** Set role for User
+   * @param user id
+   * @body data to obj
+   * @return status code
+   */
   @Put(':id/role')
   @HttpCode(HttpStatus.OK)
   @Roles(Role.ADMIN)
-  setRole(@Param('id', ParseUUIDPipe) id: string, @Body() changeRoleDTO: ChangeRoleDTO){
+  setRole(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() changeRoleDTO: ChangeRoleDTO,
+  ) {
     return this.userService.setRole(id, changeRoleDTO);
   }
 }

@@ -18,6 +18,7 @@ import { Roles } from 'src/decorator/roles.decorator';
 import { Role } from 'src/auth/enums/roles.enum';
 
 /**
+ * Enrollment Service controller
  * @author: namhm
  */
 @Controller('enrollment')
@@ -37,21 +38,31 @@ export class EnrollmentController {
   }
 
   /**
-   * Get list of enrollment
-   * @Param
+   * Get list of courses group by Student'id
+   * @Param student id
+   * @return list Student Obj
    */
   @Get('student/:id/courses')
   getList(@Param('id', ParseUUIDPipe) id: string) {
     return this.enrollmentService.getList(id);
   }
 
-  /* Lấy danh sách sinh viên của 1 môn học */
+  /**
+   * Get list of student group by Course'id
+   * @param id
+   * @return list Course Obj
+   */
   @Get('course/:id/students')
   getStudentByCourse(@Param('id', ParseUUIDPipe) id: string) {
     return this.enrollmentService.getStudentsByCourse(id);
   }
 
-  /* Cập nhật điểm số cho sinh viên */
+  /**
+   * Update Course'Score by Student'id
+   * @param student id
+   * @body data to obj
+   * @return status code
+   */
   @Put(':id')
   @Roles(Role.ADMIN, Role.TEACHER)
   updateStudentScore(
@@ -61,7 +72,10 @@ export class EnrollmentController {
     return this.enrollmentService.updateStudentScore(id, updateEnrollmentDTO);
   }
 
-  /* Hủy đăng kí môn học */
+  /** Cancel enrollment by enrollment id
+   * @param enrollment id
+   * @return status code
+   */
   @Delete(':id')
   cancelCourse(@Param('id', ParseUUIDPipe) id: string) {
     return this.enrollmentService.cancelCourse(id);

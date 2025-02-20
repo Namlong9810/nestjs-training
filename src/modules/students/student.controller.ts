@@ -26,33 +26,51 @@ import { Role } from 'src/auth/enums/roles.enum';
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
-  /* create new student */
+  /** Create a new student
+   * @body data to obj
+   * @return student data
+   */
   @Post('')
   @Roles(Role.ADMIN, Role.TEACHER)
   create(@Body() createStudentDTO: CreateStudentDTO) {
     return this.studentService.create(createStudentDTO);
   }
 
-  /* Get list students */
+  /** Get list students
+   * @return list students data
+   */
   @Get('')
   @Roles(Role.ADMIN, Role.TEACHER)
   findAll() {
     return this.studentService.findAll();
   }
 
-  /* Update student information */
+  /** Update student information
+   * @param student id
+   * @body data to obj
+   * @return student data
+   */
   @Patch(':id')
-  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateStudentDTO: UpdateStudentDTO) {
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateStudentDTO: UpdateStudentDTO,
+  ) {
     return this.studentService.update(id, updateStudentDTO);
   }
 
-  /* Remove student info by id */
+  /**
+   * Remove student info by id
+   * @param student id
+   * @return status code */
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.studentService.remove(id);
   }
 
-  /* search by id */
+  /** Search by id
+   * @param student id
+   * @return student data
+   */
   @Get(':id')
   searchById(@Param('id', ParseUUIDPipe) id: string) {
     return this.studentService.searchById(id);

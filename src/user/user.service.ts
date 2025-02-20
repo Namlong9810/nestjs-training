@@ -108,14 +108,15 @@ export class UserService {
       );
     }
   }
-  async setRole(id: string, changeRoleDTO: ChangeRoleDTO): Promise<void>{
+
+  async setRole(id: string, changeRoleDTO: ChangeRoleDTO): Promise<void> {
     const user = await this.findUser(id);
-    
+
     const result = await this.userRepository
-                    .createQueryBuilder()
-                    .update(User)
-                    .set({roles: changeRoleDTO.roles})
-                    .where({id})
-                    .execute();
+      .createQueryBuilder()
+      .update(User)
+      .set({ roles: changeRoleDTO.roles })
+      .where({ id })
+      .execute();
   }
 }

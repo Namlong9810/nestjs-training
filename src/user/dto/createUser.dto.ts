@@ -2,6 +2,8 @@ import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
 
 export class CreateUserDTO {
   @IsNotEmpty()
+  @Matches(/\d/, { message: 'Username must include at least 1 number' })
+  @Matches(/[A-Z]/, { message: 'Username must include at least 1 Upcase char' })
   username: string;
 
   @IsNotEmpty()

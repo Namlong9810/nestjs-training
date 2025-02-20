@@ -13,21 +13,11 @@ import { CourseModule } from './modules/course/courses.modules';
 import { StudentModules } from './modules/students/student.module';
 import { EnrollmentModule } from './modules/enrollments/enrollments.module';
 import { User } from './user/entities/user.entities';
+import { DatabaseModules } from './database/database.modules';
 
 @Module({
   imports: [
-    // cấu hình typeOrm kết nối db
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123456',
-      database: 'student_management',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
-    TypeOrmModule.forFeature([Student, Course, Enrollment, User]),
+    DatabaseModules,
     AuthModule,
     CourseModule,
     StudentModules,
@@ -47,6 +37,5 @@ import { User } from './user/entities/user.entities';
       useClass: RolesGuard,
     },
   ],
-  //  ]
 })
 export class AppModule {}

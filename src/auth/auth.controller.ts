@@ -14,13 +14,21 @@ import { AuthService } from './auth.service';
 import { Public } from 'src/decorator/auth.decorator';
 import { CreateUserDTO } from 'src/user/dto/createUser.dto';
 
+/**
+ * Auth Controller
+ * @author namhm
+ * */
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
-
+  /**
+   * Login
+   * @body login data to obj
+   * @return access token
+   */
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -28,11 +36,21 @@ export class AuthController {
     return this.authService.login(loginDTO.username, loginDTO.password);
   }
 
+  /**
+   * Get user profile
+   * @body request data
+   * @return user obj
+   */
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
   }
 
+  /**
+   * Register account
+   * @body user data to obj
+   * @return user obj
+   */
   @Public()
   @Post('register')
   register(@Body() createUserDTO: CreateUserDTO) {
