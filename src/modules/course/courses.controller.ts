@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   UsePipes,
@@ -22,7 +23,7 @@ export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
   @Post()
-  @Roles(Role.Admin)
+  @Roles(Role.ADMIN)
   createNewCourse(@Body() createNewCourseDTO: CreateNewCourseDTO) {
     return this.courseService.createCourse(createNewCourseDTO);
   }
@@ -33,18 +34,18 @@ export class CourseController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.courseService.findByID(id);
   }
 
   @Put(':id')
-  @Roles(Role.Admin)
-  update(@Param('id') id: string, @Body() updateCourseDTO: UpdateCourse) {
+  @Roles(Role.ADMIN)
+  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateCourseDTO: UpdateCourse) {
     return this.courseService.update(id, updateCourseDTO);
   }
 
   @Delete(':id')
-  @Roles(Role.Admin)
+  @Roles(Role.ADMIN)
   remove(@Param('') id: string) {
     return this.courseService.remove(id);
   }

@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
   Post,
   Put,
@@ -27,33 +28,33 @@ export class StudentController {
 
   /* create new student */
   @Post('')
-  @Roles(Role.Admin, Role.Teacher)
+  @Roles(Role.ADMIN, Role.TEACHER)
   create(@Body() createStudentDTO: CreateStudentDTO) {
     return this.studentService.create(createStudentDTO);
   }
 
   /* Get list students */
   @Get('')
-  @Roles(Role.Admin, Role.Teacher)
+  @Roles(Role.ADMIN, Role.TEACHER)
   findAll() {
     return this.studentService.findAll();
   }
 
   /* Update student information */
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStudentDTO: UpdateStudentDTO) {
+  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateStudentDTO: UpdateStudentDTO) {
     return this.studentService.update(id, updateStudentDTO);
   }
 
   /* Remove student info by id */
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.studentService.remove(id);
   }
 
   /* search by id */
   @Get(':id')
-  searchById(@Param('id') id: string) {
+  searchById(@Param('id', ParseUUIDPipe) id: string) {
     return this.studentService.searchById(id);
   }
 }

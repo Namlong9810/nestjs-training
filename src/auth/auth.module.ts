@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constant/constants';
-// import { JwtStrategy } from './jwt.strategy';
+import { JwtStrategy } from './jwt.strategy';
 import { UserService } from 'src/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entities';
@@ -20,7 +20,7 @@ import { User } from 'src/user/entities/user.entities';
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, /* JwtStrategy */ UserService],
+  providers: [AuthService, JwtStrategy, UserService],
   exports: [AuthService, TypeOrmModule],
 })
 export class AuthModule {}

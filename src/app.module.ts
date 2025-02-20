@@ -1,6 +1,5 @@
 import { RolesGuard } from 'src/guard/roles.guard';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Student } from './modules/students/entities/student.entity';
@@ -36,7 +35,7 @@ import { User } from './user/entities/user.entities';
     EnrollmentModule,
     UserModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
     AppService,
     {

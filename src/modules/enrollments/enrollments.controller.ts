@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   UseGuards,
@@ -30,7 +31,7 @@ export class EnrollmentController {
    * @return Enrollment Object
    */
   @Post()
-  @Roles(Role.Admin, Role.Student)
+  @Roles(Role.ADMIN, Role.STUDENT)
   create(@Body() createEnrollmentDTO: CreateEnrollmentDTO) {
     return this.enrollmentService.create(createEnrollmentDTO);
   }
@@ -40,21 +41,21 @@ export class EnrollmentController {
    * @Param
    */
   @Get('student/:id/courses')
-  getList(@Param('id') id: string) {
+  getList(@Param('id', ParseUUIDPipe) id: string) {
     return this.enrollmentService.getList(id);
   }
 
   /* Lấy danh sách sinh viên của 1 môn học */
   @Get('course/:id/students')
-  getStudentByCourse(@Param('id') id: string) {
+  getStudentByCourse(@Param('id', ParseUUIDPipe) id: string) {
     return this.enrollmentService.getStudentsByCourse(id);
   }
 
   /* Cập nhật điểm số cho sinh viên */
   @Put(':id')
-  @Roles(Role.Admin, Role.Teacher)
+  @Roles(Role.ADMIN, Role.TEACHER)
   updateStudentScore(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     updateEnrollmentDTO: UpdateEnrollmentDTO,
   ) {
     return this.enrollmentService.updateStudentScore(id, updateEnrollmentDTO);
@@ -62,7 +63,7 @@ export class EnrollmentController {
 
   /* Hủy đăng kí môn học */
   @Delete(':id')
-  cancelCourse(@Param('id') id: string) {
+  cancelCourse(@Param('id', ParseUUIDPipe) id: string) {
     return this.enrollmentService.cancelCourse(id);
   }
 }

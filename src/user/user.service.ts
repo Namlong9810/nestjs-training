@@ -10,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entities';
 import * as Bcrypt from 'bcrypt';
+import { ChangeRoleDTO } from './dto/changeRole.dto';
 @Injectable()
 export class UserService {
   constructor(
@@ -106,5 +107,15 @@ export class UserService {
         `Can not not found User with id ${id} to update`,
       );
     }
+  }
+  async setRole(id: string, changeRoleDTO: ChangeRoleDTO): Promise<void>{
+    const user = await this.findUser(id);
+    
+    const result = await this.userRepository
+                    .createQueryBuilder()
+                    .update(User)
+                    .set({roles: changeRoleDTO.roles})
+                    .where({id})
+                    .execute();
   }
 }

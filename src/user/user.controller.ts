@@ -14,6 +14,7 @@ import { Role } from 'src/auth/enums/roles.enum';
 import { Roles } from 'src/decorator/roles.decorator';
 import { UpdateUserDTO } from './dto/updateUser.dto';
 import { ChangePassDTO } from './dto/changePass.dto';
+import { ChangeRoleDTO } from './dto/changeRole.dto';
 
 @Controller('user')
 export class UserController {
@@ -21,7 +22,7 @@ export class UserController {
 
   /* Find User */
   @Get(':id')
-  @Roles(Role.Admin, Role.Teacher)
+  @Roles(Role.ADMIN, Role.TEACHER)
   findUser(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.findUser(id);
   }
@@ -29,7 +30,7 @@ export class UserController {
   /* Update User */
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  @Roles(Role.Admin)
+  @Roles(Role.ADMIN)
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDTO: UpdateUserDTO,
@@ -40,7 +41,7 @@ export class UserController {
   /* Delete User */
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  @Roles(Role.Admin)
+  @Roles(Role.ADMIN)
   delete(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.delete(id);
   }
@@ -48,11 +49,19 @@ export class UserController {
   /* Change User's password */
   @Put(':id/password')
   @HttpCode(HttpStatus.OK)
-  @Roles(Role.Student, Role.Teacher)
+  @Roles(Role.STUDENT, Role.TEACHER)
   updatePassword(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() changePassDTO: ChangePassDTO,
   ) {
     return this.userService.updatePassword(id, changePassDTO);
+  }
+
+  /* Set role for User */
+  @Put(':id/role')
+  @HttpCode(HttpStatus.OK)
+  @Roles(Role.ADMIN)
+  setRole(@Param('id', ParseUUIDPipe) id: string, @Body() changeRoleDTO: ChangeRoleDTO){
+    return this.userService.setRole(id, changeRoleDTO);
   }
 }
