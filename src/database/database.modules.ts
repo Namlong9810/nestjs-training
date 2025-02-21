@@ -16,6 +16,7 @@ import { User } from 'src/user/entities/user.entities';
       database: 'student_management',
       autoLoadEntities: true,
       synchronize: true,
+      // logging: true,
     }),
     TypeOrmModule.forFeature([Student, Course, Enrollment, User]),
   ],

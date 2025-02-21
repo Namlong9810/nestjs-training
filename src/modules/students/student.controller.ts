@@ -21,7 +21,6 @@ import { Roles } from 'src/decorator/roles.decorator';
 import { Role } from 'src/auth/enums/roles.enum';
 
 @Controller('student')
-@UseGuards(AuthGuard('jwt'))
 @UsePipes(new ValidationPipe({ whitelist: true }))
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
@@ -33,7 +32,10 @@ export class StudentController {
   @Post('')
   @Roles(Role.ADMIN, Role.TEACHER)
   create(@Body() createStudentDTO: CreateStudentDTO) {
-    return this.studentService.create(createStudentDTO);
+    return {
+      message: 'Student has been created',
+      data: this.studentService.create(createStudentDTO),
+    };
   }
 
   /** Get list students
@@ -42,7 +44,7 @@ export class StudentController {
   @Get('')
   @Roles(Role.ADMIN, Role.TEACHER)
   findAll() {
-    return this.studentService.findAll();
+    return { message: '', data: this.studentService.findAll() };
   }
 
   /** Update student information
@@ -55,7 +57,10 @@ export class StudentController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateStudentDTO: UpdateStudentDTO,
   ) {
-    return this.studentService.update(id, updateStudentDTO);
+    return {
+      message: 'Update student data successfully',
+      data: this.studentService.update(id, updateStudentDTO),
+    };
   }
 
   /**
@@ -64,7 +69,10 @@ export class StudentController {
    * @return status code */
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: string) {
-    return this.studentService.remove(id);
+    return {
+      message: 'Delete student successfully',
+      data: this.studentService.remove(id),
+    };
   }
 
   /** Search by id
@@ -73,6 +81,9 @@ export class StudentController {
    */
   @Get(':id')
   searchById(@Param('id', ParseUUIDPipe) id: string) {
-    return this.studentService.searchById(id);
+    return {
+      message: 'Delete student successfully',
+      data: this.studentService.searchById(id),
+    };
   }
 }

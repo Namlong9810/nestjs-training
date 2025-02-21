@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadGatewayException,
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Enrollment } from './entities/enrollments.entity';
 import { Course } from '../course/Entities/courses.entity';
@@ -13,16 +18,29 @@ export class EnrollmentService {
     @InjectRepository(Enrollment)
     private readonly enrollmentRepository: Repository<Enrollment>,
 
-    @InjectRepository(Course)
+    @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
 
-    @InjectRepository(Student)
+    @InjectRepository(Course)
     private readonly courseRepository: Repository<Course>,
   ) {}
   async create(createEnrollment: CreateEnrollmentDTO): Promise<Enrollment> {
     const student_id = createEnrollment.student_id;
     const course_id = createEnrollment.course_id;
 
+    // validate exist enrollment
+    const exist = await this.enrollmentRepository
+      .createQueryBuilder()
+      .where('course_id = :course_id', { course_id })
+      .andWhere('student_id = :student_id', { student_id })
+      .getOne();
+    if (exist) {
+      throw new BadRequestException(
+        `This enrollment already created, pls check again`,
+      );
+    }
+
+    // Validate id
     const result1 = await this.studentRepository.findOne({
       where: { id: student_id },
     });

@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadGatewayException,
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './Entities/courses.entity';
 import { Repository } from 'typeorm';
@@ -13,6 +18,18 @@ export class CourseService {
   ) {}
 
   async createCourse(createNewCourse: CreateNewCourseDTO): Promise<Course> {
+    // validate Course's name
+
+    const exist = await this.courseRepository.findOne({
+      where: { name: createNewCourse.name },
+    });
+
+    if (exist) {
+      throw new BadRequestException(
+        `Course's name: ${createNewCourse.name} already `,
+      );
+    }
+
     const course = this.courseRepository.create(createNewCourse);
 
     return await this.courseRepository.save(course);
@@ -43,7 +60,7 @@ export class CourseService {
 
   async remove(id: string): Promise<void> {
     const result = await this.courseRepository.delete(id);
-
+    console.log(result);
     if (!result) {
       throw new NotFoundException(`Not found Course with id ${id}`);
     }

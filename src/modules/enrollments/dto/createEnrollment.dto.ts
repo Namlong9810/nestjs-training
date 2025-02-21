@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsUUID, MaxLength } from 'class-validator';
 import { Student } from './../../students/entities/student.entity';
 
 export class CreateEnrollmentDTO {
@@ -13,6 +13,6 @@ export class CreateEnrollmentDTO {
   @IsNotEmpty()
   semester: string;
 
-  @IsNotEmpty()
-  grade: number;
+  @IsOptional()
+  grade?: number;
 }

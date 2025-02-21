@@ -13,6 +13,7 @@ import {
 import { AuthService } from './auth.service';
 import { Public } from 'src/decorator/auth.decorator';
 import { CreateUserDTO } from 'src/user/dto/createUser.dto';
+import { SkipInterceptor } from 'src/decorator/skip-interceptor.decorator';
 
 /**
  * Auth Controller
@@ -31,6 +32,7 @@ export class AuthController {
    */
   @Public()
   @HttpCode(HttpStatus.OK)
+  @SkipInterceptor()
   @Post('login')
   async login(@Body() loginDTO: Record<string, any>) {
     return this.authService.login(loginDTO.username, loginDTO.password);
@@ -54,6 +56,9 @@ export class AuthController {
   @Public()
   @Post('register')
   register(@Body() createUserDTO: CreateUserDTO) {
-    return this.userService.register(createUserDTO);
+    return {
+      message: 'Register successfully',
+      data: this.userService.register(createUserDTO),
+    };
   }
 }

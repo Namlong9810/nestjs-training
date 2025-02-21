@@ -10,5 +10,5 @@ export class CreateNewCourseDTO {
 
   @IsNotEmpty()
   @IsInt()
-  credits: number;
+  credit: number;
 }

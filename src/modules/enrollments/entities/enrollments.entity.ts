@@ -1,12 +1,14 @@
+import { Course } from 'src/modules/course/Entities/courses.entity';
+import { Student } from 'src/modules/students/entities/student.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Student } from '../../students/entities/student.entity';
-import { Course } from '../../course/Entities/courses.entity';
 
 @Entity('enrollment')
 export class Enrollment {
@@ -22,7 +24,7 @@ export class Enrollment {
   @Column({ length: 10 })
   semester: string;
 
-  @Column({ type: 'float', nullable: true })
+  @Column({ nullable: true })
   grade: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
@@ -34,4 +36,16 @@ export class Enrollment {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @ManyToOne(() => Student, (student) => student.id, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  student: Student;
+
+  @ManyToOne(() => Course, (course) => course.id, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  course: Course;
 }

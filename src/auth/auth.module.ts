@@ -15,7 +15,7 @@ import { User } from 'src/user/entities/user.entities';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60m' },
+      signOptions: { expiresIn: '2h' },
     }),
     TypeOrmModule.forFeature([User]),
   ],

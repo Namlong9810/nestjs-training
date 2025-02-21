@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseArrayPipe,
   ParseUUIDPipe,
   Post,
   Put,
@@ -16,6 +17,7 @@ import { Course } from './Entities/courses.entity';
 import { UpdateCourse } from './dto/updateCourse.dto';
 import { Roles } from 'src/decorator/roles.decorator';
 import { Role } from 'src/auth/enums/roles.enum';
+import { SkipInterceptor } from 'src/decorator/skip-interceptor.decorator';
 
 /**
  * Courses controller
@@ -34,7 +36,10 @@ export class CourseController {
   @Post()
   @Roles(Role.ADMIN)
   createNewCourse(@Body() createNewCourseDTO: CreateNewCourseDTO) {
-    return this.courseService.createCourse(createNewCourseDTO);
+    return {
+      message: 'Course has been created',
+      data: this.courseService.createCourse(createNewCourseDTO),
+    };
   }
 
   /**
@@ -42,8 +47,9 @@ export class CourseController {
    * @return list Course from tbl Course
    */
   @Get()
+  @SkipInterceptor()
   findAll() {
-    return this.courseService.findAll();
+    return  this.courseService.findAll();
   }
 
   /**
@@ -53,7 +59,7 @@ export class CourseController {
    */
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.courseService.findByID(id);
+    return { message: '', data: this.courseService.findByID(id) };
   }
 
   /**
@@ -68,7 +74,10 @@ export class CourseController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateCourseDTO: UpdateCourse,
   ) {
-    return this.courseService.update(id, updateCourseDTO);
+    return {
+      message: 'Data updates successfully',
+      data: this.courseService.update(id, updateCourseDTO),
+    };
   }
 
   /**
@@ -79,7 +88,10 @@ export class CourseController {
    */
   @Delete(':id')
   @Roles(Role.ADMIN)
-  remove(@Param('') id: string) {
-    return this.courseService.remove(id);
+  remove(@Param('id', ParseArrayPipe) id: string) {
+    return {
+      message: 'Data removes successfully',
+      data: this.courseService.remove(id),
+    };
   }
 }

@@ -29,7 +29,15 @@
 ## Project setup
 
 ```bash
+# install node modules
 $ npm install
+```
+
+## Connect database 
+
+```bash
+# Docker 
+$ docker-compose up 
 ```
 
 ## Compile and run the project

@@ -1,8 +1,12 @@
+import { Enrollment } from 'src/modules/enrollments/entities/enrollments.entity';
 import { text } from 'stream/consumers';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -30,4 +34,8 @@ export class Course {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @OneToMany(() => Enrollment, (enrollment) => enrollment.course_id)
+  @JoinColumn()
+  enrollment: Enrollment[];
 }

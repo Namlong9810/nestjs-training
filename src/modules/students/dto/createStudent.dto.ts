@@ -1,6 +1,6 @@
 import {
   IsDateString,
-  IsInt,
+  IsEmail,
   IsNotEmpty,
   IsOptional,
   MaxLength,
@@ -13,18 +13,17 @@ export class CreateStudentDTO {
   name: string;
 
   @IsOptional()
-  @Min(10)
+  @IsEmail()
   email: string;
 
   @IsNotEmpty()
-  @IsInt()
-  @Min(18)
-  age: string;
+  @MaxLength(9)
+  phone: string;
 
   @IsNotEmpty()
   @IsDateString()
   dob: string;
 
   @IsOptional()
-  address: string;
+  address?: string;
 }

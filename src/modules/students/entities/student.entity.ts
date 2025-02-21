@@ -1,7 +1,10 @@
+import { Enrollment } from 'src/modules/enrollments/entities/enrollments.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -18,7 +21,7 @@ export class Student {
   @Column({ unique: true })
   email: string;
 
-  @Column({ length: 10 })
+  @Column({ length: 9 })
   phone: string;
 
   @Column({ type: 'date' })
@@ -36,4 +39,8 @@ export class Student {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @OneToMany(() => Enrollment, (enrollment) => enrollment.student_id)
+  @JoinColumn()
+  enrollment: Enrollment[];
 }

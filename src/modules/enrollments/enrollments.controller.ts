@@ -34,7 +34,10 @@ export class EnrollmentController {
   @Post()
   @Roles(Role.ADMIN, Role.STUDENT)
   create(@Body() createEnrollmentDTO: CreateEnrollmentDTO) {
-    return this.enrollmentService.create(createEnrollmentDTO);
+    return {
+      message: 'Enrollment has been created',
+      data: this.enrollmentService.create(createEnrollmentDTO),
+    };
   }
 
   /**
@@ -44,7 +47,10 @@ export class EnrollmentController {
    */
   @Get('student/:id/courses')
   getList(@Param('id', ParseUUIDPipe) id: string) {
-    return this.enrollmentService.getList(id);
+    return {
+      message: 'Get list of Courses successfully ',
+      data: this.enrollmentService.getList(id),
+    };
   }
 
   /**
@@ -54,7 +60,10 @@ export class EnrollmentController {
    */
   @Get('course/:id/students')
   getStudentByCourse(@Param('id', ParseUUIDPipe) id: string) {
-    return this.enrollmentService.getStudentsByCourse(id);
+    return {
+      message: 'Get list of Students successfully ',
+      data: this.enrollmentService.getStudentsByCourse(id),
+    };
   }
 
   /**
@@ -69,7 +78,10 @@ export class EnrollmentController {
     @Param('id', ParseUUIDPipe) id: string,
     updateEnrollmentDTO: UpdateEnrollmentDTO,
   ) {
-    return this.enrollmentService.updateStudentScore(id, updateEnrollmentDTO);
+    return {
+      message: 'Update score successfully',
+      data: this.enrollmentService.updateStudentScore(id, updateEnrollmentDTO),
+    };
   }
 
   /** Cancel enrollment by enrollment id
@@ -78,6 +90,9 @@ export class EnrollmentController {
    */
   @Delete(':id')
   cancelCourse(@Param('id', ParseUUIDPipe) id: string) {
-    return this.enrollmentService.cancelCourse(id);
+    return {
+      message: 'Cancel enrollment successfully',
+      data: this.enrollmentService.cancelCourse(id),
+    };
   }
 }
