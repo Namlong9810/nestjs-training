@@ -1,3 +1,4 @@
+import { Max, Min, min } from 'class-validator';
 import { Course } from 'src/modules/course/Entities/courses.entity';
 import { Student } from 'src/modules/students/entities/student.entity';
 import {
@@ -5,7 +6,6 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,6 +25,8 @@ export class Enrollment {
   semester: string;
 
   @Column({ nullable: true })
+  @Min(1)
+  @Max(100)
   grade: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

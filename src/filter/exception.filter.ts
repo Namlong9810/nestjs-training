@@ -12,9 +12,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest();
     const response = ctx.getResponse();
 
-    const message = exception.message;
     const status = exception.getStatus();
+    const exceptionResponse = exception.getResponse();
 
+    let message = exceptionResponse['message'];
+
+    // Nối message thành 1 chuỗi
+    if (Array.isArray(message)) {
+      message = message.join(', ');
+    }
+    
     response.status(status).json({
       statusCode: status,
       message: message,

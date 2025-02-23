@@ -1,5 +1,5 @@
 import { IsEmail } from 'class-validator';
-import { Role } from 'src/auth/enums/roles.enum';
+import { Role } from 'src/modules/auth/enums/roles.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

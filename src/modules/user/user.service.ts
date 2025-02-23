@@ -27,6 +27,7 @@ export class UserService {
   }
 
   async register(createUserDTO: CreateUserDTO): Promise<User> {
+    console.log('Checking User');
     const existUser = await this.userRepository
       .createQueryBuilder()
       .where('username = :username', { username: createUserDTO.username })
@@ -34,6 +35,7 @@ export class UserService {
       .getOne();
 
     if (existUser) {
+      console.log('🚨 User already exists! Throwing error.');
       throw new BadRequestException(
         'Your username or email already exist in database',
       );

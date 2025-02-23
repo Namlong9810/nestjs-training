@@ -31,6 +31,7 @@ export class CourseService {
     }
 
     const course = this.courseRepository.create(createNewCourse);
+    console.log(course);
 
     return await this.courseRepository.save(course);
   }

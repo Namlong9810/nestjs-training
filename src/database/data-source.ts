@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Course } from 'src/modules/course/Entities/courses.entity';
 import { Enrollment } from 'src/modules/enrollments/entities/enrollments.entity';
 import { Student } from 'src/modules/students/entities/student.entity';
-import { User } from 'src/user/entities/user.entities';
+import { User } from 'src/modules/user/entities/user.entities';
 
 @Module({
   imports: [
@@ -15,10 +15,11 @@ import { User } from 'src/user/entities/user.entities';
       password: '123456',
       database: 'student_management',
       autoLoadEntities: true,
+      entities: [Student, Course, Enrollment, User],
+      migrations:['.src/migrations/*.ts'], 
       synchronize: true,
-      // logging: true,
+      logging: false,
     }),
-    TypeOrmModule.forFeature([Student, Course, Enrollment, User]),
   ],
 })
 export class DatabaseModules {}
