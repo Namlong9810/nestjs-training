@@ -53,6 +53,13 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API docs
+
+```bash
+# Swagger
+URL: "localhost:3000/api/docs"
+```
+
 ## Run tests
 
 ```bash
