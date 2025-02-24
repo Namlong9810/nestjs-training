@@ -35,7 +35,22 @@ export class CourseController {
    * @return Course
    */
   @ApiOperation({ summary: 'Create new course', description: 'Only Admins can create a new course' })
-  @ApiResponse({ status: 201, description: 'Course has been created' })
+  @ApiResponse({ status: 201, description: 'Course has been created',
+    schema: {
+      example: {
+        "timestamp": "2025-02-24T09:37:48.683Z",
+        "message": "Course has been created",
+        "data": {
+            "name": "Math",
+            "description": "Math course",
+            "credit": 3,
+            "id": "90019710-a783-47b9-9498-31e8a8b6f436",
+            "createdAt": "2025-02-24T02:37:48.611Z",
+            "updatedAt": "2025-02-24T02:37:48.611Z"
+        }
+      }
+    }
+   })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiBody({ type: CreateNewCourseDTO })
   @Post()
@@ -52,10 +67,35 @@ export class CourseController {
    * @return list Course from tbl Course
    */
   @ApiOperation({ summary: 'Get all courses', description: 'Retrieve all courses from the database' })
-  @ApiResponse({ status: 200, description: 'List of courses' })
+  @ApiResponse({ status: 200, description: 'List of courses', 
+    schema:{
+      example: {
+        "timestamp": "2025-02-24T09:45:17.857Z",
+        "message": "Request successfully",
+        "data": [
+            {
+                "id": "69121e56-5e7f-4387-8dd2-52ac40536429",
+                "name": "Khóa học Nestjs",
+                "description": "Khóa học Nestjs",
+                "credit": 2,
+                "createdAt": "2025-02-21T01:34:07.959Z",
+                "updatedAt": "2025-02-21T01:34:07.959Z"
+            },
+            {
+                "id": "90019710-a783-47b9-9498-31e8a8b6f436",
+                "name": "Math",
+                "description": "Math course",
+                "credit": 3,
+                "createdAt": "2025-02-24T02:37:48.611Z",
+                "updatedAt": "2025-02-24T02:37:48.611Z"
+            }
+        ]
+      }
+    }
+   })
   @Get()
-  findAll() {
-    return  this.courseService.findAll();
+  async findAll() {
+    return { message: 'Get list Courses successfully', data: await this.courseService.findAll()};
   }
 
   /**
@@ -64,7 +104,22 @@ export class CourseController {
    * @return Course data
    */
   @ApiOperation({ summary: 'Get course by ID', description: 'Retrieve course details by its ID' })
-  @ApiResponse({ status: 200, description: 'Course details' })
+  @ApiResponse({ status: 200, description: 'Course details',
+    schema: {
+      example: {
+        "timestamp": "2025-02-24T09:54:50.828Z",
+        "message": "Request successfully",
+        "data": {
+            "id": "90019710-a783-47b9-9498-31e8a8b6f436",
+            "name": "Math",
+            "description": "Math course",
+            "credit": 3,
+            "createdAt": "2025-02-24T02:37:48.611Z",
+            "updatedAt": "2025-02-24T02:37:48.611Z"
+        }
+    }
+   }
+})
   @ApiResponse({ status: 404, description: 'Course not found' })
   @ApiParam({ name: 'id', type: 'string', example: '550e8400-e29b-41d4-a716-446655440000' })
   @Get(':id')
@@ -79,7 +134,22 @@ export class CourseController {
    * @return this course data
    */
   @ApiOperation({ summary: 'Update course', description: 'Only Admins can update a course' })
-  @ApiResponse({ status: 200, description: 'Course updated successfully' })
+  @ApiResponse({ status: 200, description: 'Course updated successfully' , 
+    schema: {
+      example: {
+        "timestamp": "2025-02-24T09:51:10.254Z",
+        "message": "Data updates successfully",
+        "data": {
+            "id": "69121e56-5e7f-4387-8dd2-52ac40536429",
+            "name": "Advanced NestJs",
+            "description": "Update new name of the course",
+            "credit": 2,
+            "createdAt": "2025-02-21T01:34:07.959Z",
+            "updatedAt": "2025-02-24T02:51:10.159Z"
+        }
+      }
+    }
+  })
   @ApiResponse({ status: 404, description: 'Course not found' })
   @ApiParam({ name: 'id', type: 'string', example: '550e8400-e29b-41d4-a716-446655440000' })
   @ApiBody({ type: UpdateCourse })
@@ -102,7 +172,7 @@ export class CourseController {
    *
    */
   @ApiOperation({ summary: 'Delete course', description: 'Only Admins can delete a course' })
-  @ApiResponse({ status: 200, description: 'Course removed successfully' })
+  @ApiResponse({ status: 200, description: 'Course removed successfully'})
   @ApiResponse({ status: 404, description: 'Course not found' })
   @ApiParam({ name: 'id', type: 'string', example: '550e8400-e29b-41d4-a716-446655440000' })
   @Delete(':id')

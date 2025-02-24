@@ -21,7 +21,7 @@ export class Student {
   @Column({ unique: true })
   email: string;
 
-  @Column({ length: 9 })
+  @Column({ length: 10 })
   phone: string;
 
   @Column({ type: 'date' })

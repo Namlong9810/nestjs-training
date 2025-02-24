@@ -27,10 +27,10 @@ export class CreateStudentDTO {
 
   @ApiProperty({
     example: '0981898266',
-    description: 'Phone number (max 9 characters)',
+    description: 'Phone number (max 10 characters)',
   })
   @IsNotEmpty()
-  @MaxLength(9)
+  @MaxLength(10)
   phone: string;
 
   @ApiProperty({

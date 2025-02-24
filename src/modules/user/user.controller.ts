@@ -27,13 +27,27 @@ export class UserController {
    * @param user id
    * @return user obj */
   @ApiOperation({ summary: 'Find user', description: 'Get user by ID' })
-  @ApiResponse({ status: 200, description: 'User found successfully' })
+  @ApiResponse({ status: 200, description: 'User found successfully', 
+    schema: {
+      example: {
+        "timestamp": "2025-02-24T10:35:48.615Z",
+        "message": "Get User successfully",
+        "data": {
+            "id": "0cdefd75-fc9c-4390-825f-e9febf7da85d",
+            "username": "Honhulong9810",
+            "email": "taotennam112@gmail.com",
+            "password": "$2b$12$MDav3cNDdRisepLGYcDKM.n99YwEXJDBKVBwivbxVgXJC/US5V9ka",
+            "roles": "ADMIN"
+        }
+      }
+    }    
+  })
   @ApiResponse({ status: 404, description: 'User not found' })
   @ApiParam({ name: 'id', type: 'string', example: '550e8400-e29b-41d4-a716-446655440000' })
   @Get(':id')
   @Roles(Role.ADMIN, Role.TEACHER)
   async findUser(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.userService.findUser(id);
+    return {message: 'Get User successfully', data: await this.userService.findUser(id)};
   }
 
   /** Update User
@@ -41,7 +55,9 @@ export class UserController {
    * @return status code
    */
   @ApiOperation({ summary: 'Update user', description: 'Update user information by ID' })
-  @ApiResponse({ status: 200, description: 'User updated successfully' })
+  @ApiResponse({ status: 200, description: 'User updated successfully', 
+    
+   })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiParam({ name: 'id', type: 'string', example: '550e8400-e29b-41d4-a716-446655440000' })
   @ApiBody({ type: UpdateUserDTO })

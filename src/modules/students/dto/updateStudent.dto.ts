@@ -1,6 +1,7 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsDateString,
+  IsEmail,
   IsInt,
   IsOptional,
   MaxLength,
@@ -23,15 +24,15 @@ export class UpdateStudentDTO {
       description: 'Student email (optional)',
     })
   @IsOptional()
-  @Min(10)
+  @IsEmail()
   email?: string;
 
   @ApiPropertyOptional({
       example: '0981898266',
-      description: 'Phone number (max 9 characters)',
+      description: 'Phone number (max 10 characters)',
     })
   @IsOptional()
-  @MaxLength(9)
+  @MaxLength(10)
   phone?: string;
 
   @ApiPropertyOptional({

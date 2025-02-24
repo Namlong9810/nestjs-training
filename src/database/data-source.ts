@@ -16,7 +16,7 @@ import { User } from 'src/modules/user/entities/user.entities';
       database: 'student_management',
       autoLoadEntities: true,
       entities: [Student, Course, Enrollment, User],
-      migrations:['.src/migrations/*.ts'], 
+      // migrations:['.src/migrations/*.ts'], 
       synchronize: true,
       logging: false,
     }),

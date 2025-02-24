@@ -57,7 +57,12 @@ export class EnrollmentService {
       }
     }
 
-    const enrollment = this.enrollmentRepository.create(createEnrollment);
+    const create = this.enrollmentRepository.create(createEnrollment);
+    if(!create){
+      throw new BadGatewayException(`Can not create enrollment`);
+    }
+    
+    const enrollment = await this.enrollmentRepository.save(create)
 
     return enrollment;
   }
@@ -80,8 +85,8 @@ export class EnrollmentService {
 
   async getStudentsByCourse(id: string): Promise<Student[]> {
     const students = await this.studentRepository
-      .createQueryBuilder('student')
-      .innerJoin('enrollment', 'enrollment', 'enrolment.course_id = student.id')
+      .createQueryBuilder('students')
+      .innerJoin('enrollment', 'enrollment', 'enrollment.student_id = students.id')
       .where('enrollment.course_id = :id', { id })
       .getMany();
 

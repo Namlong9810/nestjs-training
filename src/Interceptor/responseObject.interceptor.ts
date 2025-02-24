@@ -31,7 +31,7 @@ export class ResponseObject implements NestInterceptor {
       map((dataResponse) => {
         
         const { message, data } = dataResponse ?? {};
-
+        console.log(data);
         // Xử lý response với arr 
         if (Array.isArray(data)) {
           return {
@@ -39,16 +39,15 @@ export class ResponseObject implements NestInterceptor {
             message: 'Request successfully',
             data: data,
           };
-        }
-
-        // Xử lý response với 1 object
-        return {
-          timestamp: new Date().toISOString(),
-          message: message || 'Request successfully',
-          data: data,
-        };
+        }else {
+        // Xử lý response với 1 object  
+          return {
+            timestamp: new Date().toISOString(),
+            message: message || 'Request successfully',
+            data: data,
+          };
+        }  
       })
-    );
-         
+    );      
   }
 } 
