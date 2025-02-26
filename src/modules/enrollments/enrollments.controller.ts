@@ -21,6 +21,8 @@ import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/s
 /**
  * Enrollment Service controller
  * @author: namhm
+ * @version: 1.0
+ * @since: 2025-02-16
  */
 @ApiTags('Enrollment')
 @Controller('enrollment')

@@ -9,6 +9,12 @@ import {
   min,
 } from 'class-validator';
 
+/**
+ * DTO update student
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+ */
 export class UpdateStudentDTO {
 
   @ApiPropertyOptional({

@@ -5,6 +5,13 @@ import {
   HttpException,
 } from '@nestjs/common';
 
+
+/**
+ * Lớp xử lý exception của HttpException và format kiểu dữ liệu trả về khi xảy ra exception
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {

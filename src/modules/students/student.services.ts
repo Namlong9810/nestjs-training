@@ -5,6 +5,12 @@ import { Repository } from 'typeorm';
 import { CreateStudentDTO } from './dto/createStudent.dto';
 import { UpdateStudentDTO } from './dto/updateStudent.dto';
 
+/**
+ * Student service
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+ */
 @Injectable()
 export class StudentService {
   constructor(

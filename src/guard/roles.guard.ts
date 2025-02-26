@@ -8,6 +8,13 @@ import {
 } from '@nestjs/common';
 import { ROLE_KEYS } from 'src/decorator/roles.decorator';
 
+/**
+ * Lớp xử lý RoleGuards của xác định và phân quyền cho role khi người muốn truy cập vào api
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
+
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
@@ -23,9 +30,6 @@ export class RolesGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-
-    console.log(requiredRole);
-    console.log(user.role);
 
     if (!user.role) {
       throw new UnauthorizedException(

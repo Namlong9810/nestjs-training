@@ -1,6 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
+/**
+ * DTO update enrollment
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 export class UpdateEnrollmentDTO {
   @ApiPropertyOptional({
       example: 'Summer 2025',

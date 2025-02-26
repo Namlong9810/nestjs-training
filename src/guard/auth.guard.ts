@@ -11,6 +11,13 @@ import { Request } from 'express';
 import { jwtConstants } from 'src/modules/auth/constant/constants';
 import { IS_PUBLIC_KEY } from 'src/decorator/auth.decorator';
 
+/**
+ * Lớp xử lý AuthGuar giải mã và kiểm tra token từ header
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
+
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
@@ -40,14 +47,14 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
-      request['user'] = payload;
+      request['user'] = payload; // Lưu thông tin user vào request
     } catch {
       throw new UnauthorizedException();
     }
     return true;
   }
 
-  /* giải mã token từ header */
+  // Giải mã token từ header
   private extractTokenFromHeader(request: Request): string | undefined {
     const authHeader = request.headers.authorization;
 

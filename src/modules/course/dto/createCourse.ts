@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsNotEmpty, MaxLength } from 'class-validator';
-
+/**
+ * DTO create new course
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 export class CreateNewCourseDTO {
   @ApiProperty({
     example: 'Training Nodejs',

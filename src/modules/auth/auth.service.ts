@@ -3,6 +3,12 @@ import { UserService } from 'src/modules/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import * as Bcrypt from 'bcrypt';
 
+/**
+ * Auth service
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 @Injectable()
 export class AuthService {
   constructor(
@@ -10,7 +16,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  /* Tạo jwt nếu đăng nhập thành công */
   async login(
     username: string,
     password: string,

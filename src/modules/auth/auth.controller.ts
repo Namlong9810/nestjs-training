@@ -3,12 +3,8 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
-  HttpStatus,
-  Logger,
   Post,
   Request,
-  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from 'src/decorator/auth.decorator';
@@ -19,7 +15,9 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 /**
  * Auth Controller
  * @author namhm
- * */
+ * @version 1.0
+ * @since 2025-02-16
+*/
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {

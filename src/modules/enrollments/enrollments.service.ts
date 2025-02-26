@@ -12,6 +12,12 @@ import { Repository } from 'typeorm';
 import { CreateEnrollmentDTO } from './dto/createEnrollment.dto';
 import { UpdateEnrollmentDTO } from './dto/updateEnrollment.dto';
 
+/**
+ * Enrollment Service
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+ */
 @Injectable()
 export class EnrollmentService {
   constructor(

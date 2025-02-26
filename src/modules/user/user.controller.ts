@@ -17,6 +17,12 @@ import { ChangePassDTO } from './dto/changePass.dto';
 import { ChangeRoleDTO } from './dto/changeRole.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+/**
+ * User controller
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 @ApiTags('User')
 @Controller('user')
 export class UserController {

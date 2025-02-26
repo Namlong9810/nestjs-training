@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Equals, IsNotEmpty } from 'class-validator';
 
+/**
+ * DTO change password
+ * @author namhm
+ * @version 1.0
+ * @since 2021-05-16
+ */
 export class ChangePassDTO {
   @ApiProperty({
     example: 'OldPass@9810',

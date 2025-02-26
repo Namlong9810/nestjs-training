@@ -1,16 +1,20 @@
 import { Enrollment } from 'src/modules/enrollments/entities/enrollments.entity';
-import { text } from 'stream/consumers';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+/**
+ * Course entity
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 @Entity('course')
 export class Course {
   @PrimaryGeneratedColumn('uuid')

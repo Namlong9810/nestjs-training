@@ -8,8 +8,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './Entities/courses.entity';
 import { Repository } from 'typeorm';
 import { CreateNewCourseDTO } from './dto/createCourse';
-import { NotFoundError } from 'rxjs';
 import { UpdateCourse } from './dto/updateCourse.dto';
+
+/**
+ * Course service
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
+
 @Injectable()
 export class CourseService {
   constructor(

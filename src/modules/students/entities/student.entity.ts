@@ -10,6 +10,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+/**
+ * Student entity
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+ */
 @Entity('students')
 export class Student {
   @PrimaryGeneratedColumn('uuid')

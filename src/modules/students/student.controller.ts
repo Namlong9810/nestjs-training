@@ -17,6 +17,12 @@ import { Roles } from 'src/decorator/roles.decorator';
 import { Role } from 'src/modules/auth/enums/roles.enum';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+/**
+ * Student controller
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+ */
 @ApiTags('Student')
 @Controller('student')
 @UsePipes(new ValidationPipe({ whitelist: true }))

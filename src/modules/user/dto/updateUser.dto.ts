@@ -8,6 +8,12 @@ import {
 } from 'class-validator';
 import { Role } from 'src/modules/auth/enums/roles.enum';
 
+/**
+ * DTO update user
+ * @author namhm 
+ * @version 1.0
+ * @since 2021-05-16
+ */
 export class UpdateUserDTO {
   @ApiPropertyOptional({
     example: 'Namlong9810@gmail.com',

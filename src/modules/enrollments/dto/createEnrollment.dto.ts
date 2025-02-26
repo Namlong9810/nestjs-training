@@ -1,7 +1,12 @@
 import { IsNotEmpty, IsOptional, IsUUID, Max, MaxLength, Min } from 'class-validator';
-import { Student } from './../../students/entities/student.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
+/**
+ * DTO create new enrollment
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 export class CreateEnrollmentDTO {
   @ApiProperty({
     example: '550e8400-e29b-41d4-a716-446655440000',

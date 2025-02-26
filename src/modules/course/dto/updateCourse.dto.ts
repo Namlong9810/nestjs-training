@@ -1,6 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsInt, IsOptional } from 'class-validator';
 
+/**
+ * DTO update course
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 export class UpdateCourse {
   @ApiPropertyOptional({
     example: 'Advanced NestJS',

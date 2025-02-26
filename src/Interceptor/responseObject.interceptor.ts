@@ -10,6 +10,12 @@ import {
 import { catchError, map, Observable } from 'rxjs';
 import { SKIP_INTERCEPTOR } from 'src/decorator/skip-interceptor.decorator';
 
+/**
+ * Lớp xử lý response object format kiểu dữ liệu trả về trong api
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 @Injectable()
 export class ResponseObject implements NestInterceptor {
   constructor(private readonly reflector: Reflector) {}

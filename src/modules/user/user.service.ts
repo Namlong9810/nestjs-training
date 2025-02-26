@@ -11,6 +11,13 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entities';
 import * as Bcrypt from 'bcrypt';
 import { ChangeRoleDTO } from './dto/changeRole.dto';
+
+/**
+ * User service
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+  */
 @Injectable()
 export class UserService {
   constructor(

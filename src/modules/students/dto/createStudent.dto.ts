@@ -8,6 +8,12 @@ import {
   Min,
 } from 'class-validator';
 
+/**
+ * DTO create new student
+ * @author namhm
+ * @version 1.0
+ * @since 2025-02-16
+ */
 export class CreateStudentDTO {
   @ApiProperty({
     example: 'Ho Nhu Long',
