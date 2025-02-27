@@ -5,7 +5,7 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 RUN apt-get update 
 
-RUN npm install --only=production 
+RUN npm install  
 
 COPY . .
 
