@@ -9,7 +9,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entities';
-import * as Bcrypt from 'bcrypt';
+import * as Bcrypt from 'bcryptjs';
 import { ChangeRoleDTO } from './dto/changeRole.dto';
 
 /**
@@ -102,12 +102,15 @@ export class UserService {
     }
 
     //hash pass và update vào db
-    const hashPassword = Bcrypt.hash(changePassDTO.newPassword, 10);
+    const hashPassword =  await Bcrypt.hash(changePassDTO.newPassword, 10);
+
+    if(!hashPassword) {
+      throw new BadRequestException(`Can not hash password`);
+    }
     const result = await this.userRepository
       .createQueryBuilder()
       .update(User)
       .set({ password: hashPassword })
-      // .where('id = :id', {id})
       .where({ id })
       .execute();
 
