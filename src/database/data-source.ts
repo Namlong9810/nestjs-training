@@ -14,6 +14,7 @@ import { User } from 'src/modules/user/entities/user.entities';
       username: 'postgres',
       password: '123456',
       database: 'student_management',
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
       entities: [Student, Course, Enrollment, User],
       // migrations:['.src/migrations/*.ts'], 
